@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8dce8">
+  <meta name="description" content="Personal planner harian untuk jadwal, tugas, self care, dan catatan.">
+  <title>My Daily Life ♡</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">YOUR LITTLE SPACE TO ORGANIZE LIFE</p>
+        <h1>My Daily Life <span>♡</span></h1>
+      </div>
+      <div class="top-date" id="prettyDate"></div>
+    </header>
+
+    <section class="welcome-card">
+      <div>
+        <p class="eyebrow">HELLO, LOVELY!</p>
+        <h2>Make today<br>feel a little softer.</h2>
+        <p class="muted">Satu langkah kecil juga tetap sebuah progress.</p>
+      </div>
+      <div class="flower" aria-hidden="true">🌷</div>
+    </section>
+
+    <section class="date-row">
+      <button class="icon-button" id="prevDay" aria-label="Hari sebelumnya">‹</button>
+      <label class="date-picker-wrap">
+        <span>PLAN YOUR DAY</span>
+        <input type="date" id="selectedDate">
+      </label>
+      <button class="icon-button" id="nextDay" aria-label="Hari berikutnya">›</button>
+      <button class="today-button" id="todayButton">Hari ini</button>
+    </section>
+
+    <nav class="tabs" aria-label="Navigasi">
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="tasks">Tasks</button>
+      <button class="tab" data-tab="routine">Self care</button>
+      <button class="tab" data-tab="notes">Notes</button>
+    </nav>
+
+    <main>
+      <section class="panel active" id="panel-overview">
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR PROGRESS</p><h2>Daily overview</h2></div>
+          <span class="progress-label" id="progressText">0% done</span>
+        </div>
+        <div class="progress-track"><div id="progressBar"></div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span>📌</span><strong id="taskCount">0</strong><small>Tasks today</small></article>
+          <article class="stat-card"><span>🌸</span><strong id="routineCount">0</strong><small>Routine done</small></article>
+          <article class="stat-card"><span>✨</span><strong id="doneCount">0</strong><small>Completed</small></article>
+        </div>
+        <div class="section-heading compact"><div><p class="eyebrow">A LITTLE PLAN</p><h2>Today's tasks</h2></div><button class="text-button" data-go="tasks">See all →</button></div>
+        <div id="overviewTasks" class="item-list"></div>
+        <div class="section-heading compact"><div><p class="eyebrow">TAKE CARE OF YOU</p><h2>Self care preview</h2></div><button class="text-button" data-go="routine">Open routine →</button></div>
+        <div id="overviewRoutine" class="item-list"></div>
+      </section>
+
+      <section class="panel" id="panel-tasks">
+        <div class="section-heading"><div><p class="eyebrow">PLAN & PRIORITIZE</p><h2>My tasks</h2></div><span class="soft-pill">For selected day</span></div>
+        <form id="taskForm" class="add-form">
+          <input id="taskTitle" type="text" maxlength="100" placeholder="Contoh: Kerjakan tugas Statistik..." required>
+          <div class="form-row">
+            <input id="taskTime" type="time" aria-label="Waktu">
+            <select id="taskCategory" aria-label="Kategori">
+              <option value="Kuliah">Kuliah</option><option value="Pribadi">Pribadi</option><option value="Acara">Acara</option><option value="Organisasi">Organisasi</option><option value="Lainnya">Lainnya</option>
+            </select>
+            <button class="primary-button" type="submit">+ Tambah</button>
+          </div>
+        </form>
+        <div class="filter-row"><button class="filter active" data-filter="all">Semua</button><button class="filter" data-filter="open">Belum selesai</button><button class="filter" data-filter="done">Selesai</button></div>
+        <div id="taskList" class="item-list"></div>
+      </section>
+
+      <section class="panel" id="panel-routine">
+        <div class="section-heading"><div><p class="eyebrow">YOUR SELF-CARE MOMENT</p><h2>Care routine</h2></div><span class="soft-pill">Gentle reminder ♡</span></div>
+        <p class="muted intro">Centang setiap langkah yang sudah kamu lakukan. Progress tersimpan untuk tanggal yang dipilih.</p>
+        <div id="routineGroups"></div>
+        <form id="routineForm" class="add-form routine-add">
+          <p class="eyebrow">ADD YOUR OWN STEP</p>
+          <input id="routineTitle" type="text" maxlength="90" placeholder="Contoh: Pakai hair vitamin..." required>
+          <div class="form-row"><select id="routineGroup"><option value="Sebelum mandi">Sebelum mandi</option><option value="Setelah mandi">Setelah mandi</option><option value="Skincare pagi">Skincare pagi</option><option value="Skincare malam">Skincare malam</option><option value="Makeup">Makeup</option></select><button class="primary-button" type="submit">+ Tambah step</button></div>
+        </form>
+        <button class="subtle-button" id="resetRoutine">Reset checklist tanggal ini</button>
+      </section>
+
+      <section class="panel" id="panel-notes">
+        <div class="section-heading"><div><p class="eyebrow">THOUGHTS & REMINDERS</p><h2>My notes</h2></div><span class="soft-pill">Private on this device</span></div>
+        <p class="muted intro">Catatan ini tersimpan otomatis untuk tanggal yang dipilih.</p>
+        <textarea id="dailyNote" rows="10" placeholder="Tulis apa saja di sini... ide, pengingat, cerita hari ini, atau hal yang ingin kamu syukuri ♡"></textarea>
+        <p class="save-status" id="noteStatus">Tersimpan otomatis di perangkat ini.</p>
+      </section>
+    </main>
+
+    <footer>Made with love, just for your little everyday moments ♡</footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

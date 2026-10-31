@@ -1,0 +1,18 @@
+{
+  "name": "My Daily Life",
+  "short_name": "Daily Life",
+  "description": "Personal planner harian soft pink",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff9fb",
+  "theme_color": "#f8dce8",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
